@@ -17,19 +17,32 @@ $(function () {
     const form = layui.form
     const layer = layui.layer
     form.verify({
-        pwd: function (value) {
-            const reg = /^[\S]{6,12}$/
-            if (!reg.test(value)) {
-                return '密码必须是6到12位，且不能出现空格'
-            }
-        },
+        pwd: [/^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格'],
         repwd: function (value) {
+            // 通过形参拿到的是确认密码框中的内容
+            // 还需要拿到密码框中的内容
+            // 然后进行一次等于的判断
+            // 如果判断失败,则return一个提示消息即可
             const pwd = $('.reg-box [name=password]').val()
             if (pwd !== value) {
-                return '两次密码输入不一致 '
+                return '两次密码不一致！'
             }
         }
     })
+    // form.verify({
+    //     pwd: function (value) {
+    //         const reg = /^[\S]{6,12}$/
+    //         if (!reg.test(value)) {
+    //             return '密码必须是6到12位，且不能出现空格'
+    //         }
+    //     },
+    //     repwd: function (value) {
+    //         const pwd = $('.reg-box [name=password]').val()
+    //         if (pwd !== value) {
+    //             return '两次密码输入不一致 '
+    //         }
+    //     }
+    // })
 
     // 监听注册表单的提交事件
     $('#form_reg').on('submit', function (e) {
