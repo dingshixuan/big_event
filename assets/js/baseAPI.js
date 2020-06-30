@@ -15,7 +15,10 @@ $.ajaxPrefilter(function (options) {
     options.complete = function (res) {
         const { status, message } = res.responseJSON;
         if (status === 1 && message === '身份认证失败') {
-            clearToken()
+            //错误中间件返回的数据
+            // clearToken()
+            localStorage.removeItem('token')
+            location.href = './login.html'
         }
     }
 })
